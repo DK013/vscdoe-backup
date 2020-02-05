@@ -10,14 +10,19 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.backup",
+		"onCommand:extension.restore"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "extension.backup",
+				"title": "VSCode Backup"
+			},
+			{
+				"command": "extension.restore",
+				"title": "VSCode Restore"
 			}
 		]
 	},
