@@ -5,11 +5,14 @@ const sh = require('shelljs');
 const Shell = require('node-powershell');
 const fs = require('fs');
 const path = require('path');
+const AdmZip = require('adm-zip');
  
 const ps = new Shell({
   executionPolicy: 'Bypass',
   noProfile: true
 });
+const folderPath = path.join(process.env.APPDATA, 'Code\\User');
+const documents = path.join(process.env.USERPROFILE, 'Documents');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -32,14 +35,13 @@ function activate(context) {
 			ps.addCommand('code --list-extensions | % { "code --install-extension $_" }');
 			ps.invoke()
 			.then(output => {
-				var folderPath = path.join(process.env.APPDATA, 'Code\\User');
 				fs.writeFile(path.join(folderPath, 'plugins.txt'), output, error => {
 					if(error) {
 						console.log(error);
 						vscode.window.showErrorMessage('Failed to create backup file');
 					}
 					else {
-						vscode.window.showInformationMessage('Backup File Created');
+						archive();
 					}
 				});
 			})
@@ -53,15 +55,31 @@ function activate(context) {
 				vscode.window.showInformationMessage(output);
 			});
 		}
-		// Display a message box to the user
 		
 	});
 
 	let command2 = vscode.commands.registerCommand('extension.restore', function () {
 		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Restore Command Fired');
+		archive('extract');
+		setTimeout(()=>{
+			fs.readFile(path.join(folderPath, 'plugins.txt'), (err, data)=>{
+				if(err) {
+					console.log(err);
+				}
+				else {
+					ps.addCommand(data.toString());
+					ps.invoke()
+					.then(output => {
+						console.log(output);
+						vscode.window.showInformationMessage('Extaintions Imported. Check Console for Details');
+					})
+					.catch(err => {
+						console.log(err);
+						vscode.window.showErrorMessage('Failed to install extainsions');
+					});
+				}
+			})
+		},1000);
 	});
 
 	context.subscriptions.push(command1, command2);
@@ -71,6 +89,21 @@ exports.activate = activate;
 // this method is called when your extension is deactivated
 function deactivate() {}
 
+function archive(mode = 'create') {
+	if(mode === 'create') {
+		var zip = new AdmZip();
+		zip.addLocalFile(path.join(folderPath, 'plugins.txt'));
+		zip.addLocalFile(path.join(folderPath, 'settings.json'));
+		zip.writeZip(path.join(documents, 'vs_backup.zip'));
+		vscode.window.showInformationMessage('Backup File Created');
+		// require('child_process').exec('start "" "'+documents+'"');
+	}
+	else if(mode === 'extract') {
+		var zip = new AdmZip(path.join(documents, 'vs_backup.zip'));
+		zip.extractAllTo(folderPath, true);
+		vscode.window.showInformationMessage('User Settings Imported Successfully');
+	}
+}
 module.exports = {
 	activate,
 	deactivate
