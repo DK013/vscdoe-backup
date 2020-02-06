@@ -1,6 +1,7 @@
 {
 	"name": "vscode-backup",
 	"displayName": "vscode-backup",
+	"publisher": "Westenets",
 	"description": "Backup/Restore VSCode Settings and plugins",
 	"version": "0.0.1",
 	"engines": {
