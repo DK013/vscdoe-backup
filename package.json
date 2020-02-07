@@ -2,6 +2,7 @@
 	"name": "vscode-backup",
 	"displayName": "vscode-backup",
 	"publisher": "Westenets",
+	"repository": "https://github.com/DK013/vscdoe-backup",
 	"description": "Backup/Restore VSCode Settings and plugins",
 	"version": "0.0.1",
 	"engines": {
@@ -31,7 +32,8 @@
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
+		"test": "node ./test/runTest.js",
+		"build": "vsce package"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
@@ -42,6 +44,7 @@
 		"glob": "^7.1.6",
 		"mocha": "^7.0.1",
 		"typescript": "^3.7.5",
+		"vsce": "^1.73.0",
 		"vscode-test": "^1.3.0"
 	},
 	"dependencies": {
