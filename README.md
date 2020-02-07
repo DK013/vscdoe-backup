@@ -18,6 +18,15 @@ Or can be accessed manually with the folowing commands:
 Windows Only.
 Other OS Support coming soon
 
+## Contributing
+
+Clone the repository `git clone https://github.com/DK013/vscdoe-backup.git`
+
+**Build**
+Install Node-Modules: `npm install`
+Build: `npm run build`
+
+
 ## Release Notes
 
 ### 0.0.1
