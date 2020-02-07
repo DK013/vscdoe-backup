@@ -6,7 +6,7 @@ Backup/Restore VSCode User Settings and Plugins
 
 ## Download from Marketplace
 
-Download : [a link](https://marketplace.visualstudio.com/items?itemName=Westenets.vscode-backup)
+Download : [Link to Marketplace](https://marketplace.visualstudio.com/items?itemName=Westenets.vscode-backup)
 
 ## Usage
 
