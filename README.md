@@ -40,4 +40,8 @@ Build: `npm run build`
 
 Initial release of vscode backup for Windows
 
+### 0.0.2
+
+Added Icons and Manifest for Marketplace
+
 **Enjoy!**
