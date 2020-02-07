@@ -11,6 +11,7 @@ The Extaintion runs every time vscode starts
 Or can be accessed manually with the folowing commands:
 
 `VSCode Backup`: Backs up user settings and installed plugins list in a zip file to the document folder.
+
 `VSCode REstore`: Restores user settings and Installs all plugins listed in the backup file from the zip located in Documents folder.
 
 ## OS Support
