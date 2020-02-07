@@ -10,7 +10,7 @@
 	"description": "Backup/Restore VSCode Settings and plugins",
 	"icon": "images/icon.png",
 	"galleryBanner": {
-		"color": "#F3f3f3",
+		"color": "#101010",
 		"theme": "dark"
 	},
 	"version": "0.0.1",
