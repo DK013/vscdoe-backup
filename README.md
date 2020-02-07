@@ -23,7 +23,9 @@ Other OS Support coming soon
 Clone the repository `git clone https://github.com/DK013/vscdoe-backup.git`
 
 **Build**
+
 Install Node-Modules: `npm install`
+
 Build: `npm run build`
 
 
