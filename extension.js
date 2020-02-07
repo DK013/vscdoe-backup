@@ -6,6 +6,7 @@ const Shell = require('node-powershell');
 const fs = require('fs');
 const path = require('path');
 const AdmZip = require('adm-zip');
+const Output = vscode.window.createOutputChannel('Vscode Backup');
  
 const ps = new Shell({
   executionPolicy: 'Bypass',
@@ -22,9 +23,9 @@ const documents = path.join(process.env.USERPROFILE, 'Documents');
  */
 function activate(context) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
+	// Use the console to output diagnostic information (Output.appendLine) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "vscode-backup" is now active!');
+	Output.appendLine('Congratulations, your extension "vscode-backup" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
@@ -32,12 +33,13 @@ function activate(context) {
 	let command1 = vscode.commands.registerCommand('extension.backup', function () {
 		// The code you place here will be executed every time your command is executed
 		if(process.platform === "win32") {
-			ps.addCommand('code --list-extensions | % { "code --install-extension $_" }');
+			ps.addCommand('code --list-extensions | % { "code --install-extension $_ " }');
 			ps.invoke()
 			.then(output => {
-				fs.writeFile(path.join(folderPath, 'plugins.txt'), output, error => {
+				// output = output.split('\n').join(';');
+				fs.writeFile(path.join(folderPath, 'plugins.ps1'), output, error => {
 					if(error) {
-						console.log(error);
+						Output.appendLine(error.toString());
 						vscode.window.showErrorMessage('Failed to create backup file');
 					}
 					else {
@@ -46,7 +48,7 @@ function activate(context) {
 				});
 			})
 			.catch(err => {
-				console.log(err);
+				Output.appendLine(err);
 				vscode.window.showErrorMessage('Failed to get extensions list');
 			});
 		}
@@ -62,23 +64,20 @@ function activate(context) {
 		// The code you place here will be executed every time your command is executed
 		archive('extract');
 		setTimeout(()=>{
-			fs.readFile(path.join(folderPath, 'plugins.txt'), (err, data)=>{
-				if(err) {
-					console.log(err);
-				}
-				else {
-					ps.addCommand(data.toString());
-					ps.invoke()
-					.then(output => {
-						console.log(output);
-						vscode.window.showInformationMessage('Extaintions Imported. Check Console for Details');
-					})
-					.catch(err => {
-						console.log(err);
-						vscode.window.showErrorMessage('Failed to install extainsions');
-					});
-				}
-			})
+			var spawn = require("child_process").spawn,child;
+			child = spawn("powershell.exe",[path.join(folderPath, 'plugins.ps1')]);
+			child.stdout.on("data",function(data){
+				Output.appendLine(data);
+			});
+			child.stderr.on("data",function(data){
+				Output.appendLine("Errors: " + data);
+				vscode.window.showErrorMessage('Failed to install extainsions');
+			});
+			child.on("exit",function(){
+				Output.appendLine("Script finished");
+				vscode.window.showInformationMessage('Extaintions Imported. Check Output for Details');
+			});
+			child.stdin.end(); //end input
 		},1000);
 	});
 
@@ -92,7 +91,7 @@ function deactivate() {}
 function archive(mode = 'create') {
 	if(mode === 'create') {
 		var zip = new AdmZip();
-		zip.addLocalFile(path.join(folderPath, 'plugins.txt'));
+		zip.addLocalFile(path.join(folderPath, 'plugins.ps1'));
 		zip.addLocalFile(path.join(folderPath, 'settings.json'));
 		zip.writeZip(path.join(documents, 'vs_backup.zip'));
 		vscode.window.showInformationMessage('Backup File Created');

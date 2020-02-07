@@ -4,9 +4,9 @@
 
 Backup/Restore VSCode User Settings and Plugins
 
-## Extension Commands
+## Usage
 
-The Extaintion runs veery time vscode starts
+The Extaintion runs every time vscode starts
 
 Or can be accessed manually with the folowing commands:
 
@@ -16,12 +16,12 @@ Or can be accessed manually with the folowing commands:
 ## OS Support
 
 Windows Only.
-Other OS Support under development
+Other OS Support coming soon
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
-Initial release of vscode backup
+Initial release of vscode backup for Windows
 
 **Enjoy!**
