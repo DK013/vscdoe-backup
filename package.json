@@ -1,9 +1,18 @@
 {
 	"name": "vscode-backup",
-	"displayName": "vscode-backup",
+	"displayName": "VScode Backup",
 	"publisher": "Westenets",
-	"repository": "https://github.com/DK013/vscdoe-backup",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DK013/vscdoe-backup.git"
+	},
+	"homepage": "https://github.com/DK013/vscdoe-backup",
 	"description": "Backup/Restore VSCode Settings and plugins",
+	"icon": "images/icon.png",
+	"galleryBanner": {
+		"color": "#F3f3f3",
+		"theme": "dark"
+	},
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.41.0"
@@ -15,6 +24,12 @@
 		"onCommand:extension.backup",
 		"onCommand:extension.restore",
 		"*"
+	],
+	"keywords": [
+		"Backup",
+		"Extainsion Backup",
+		"Plugins Backup",
+		"Settings Backup"
 	],
 	"main": "./extension.js",
 	"contributes": {
