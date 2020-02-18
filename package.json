@@ -23,6 +23,7 @@
 	"activationEvents": [
 		"onCommand:extension.backup",
 		"onCommand:extension.restore",
+		"onCommand:extension.open-directory",
 		"*"
 	],
 	"keywords": [
@@ -36,11 +37,15 @@
 		"commands": [
 			{
 				"command": "extension.backup",
-				"title": "VSCode Backup"
+				"title": "vscode-backup.backup"
 			},
 			{
 				"command": "extension.restore",
-				"title": "VSCode Restore"
+				"title": "vscode-backup.restore"
+			},
+			{
+				"command": "extension.open-directory",
+				"title": "vscode-backup.open-directory"
 			}
 		]
 	},
@@ -65,6 +70,7 @@
 	"dependencies": {
 		"adm-zip": "^0.4.13",
 		"node-powershell": "^4.0.0",
+		"node-zip": "^1.1.1",
 		"opn": "^6.0.0",
 		"shelljs": "^0.8.3"
 	}
