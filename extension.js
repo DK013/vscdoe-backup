@@ -134,18 +134,61 @@ function deactivate() {}
 
 function archive(mode = 'create') {  //implemet node-zip after mac test
 	if(mode === 'create') {
+		var error = 0;
 		// @ts-ignore
 		var zip = new require('node-zip')();
 		if(process.platform === 'win32') {
-			zip.file('plugins.ps1', fs.readFileSync(path.join(folderPath, 'plugins.ps1')));
+			fs.readFile(path.join(folderPath, 'plugins.ps1'), (err, data)=>{
+				if(err) {
+					Output.appendLine(err.toString());
+					error++;
+				}
+				else {
+					zip.file('plugins.ps1', data);
+				}
+			});
+			fs.readFile(path.join(folderPath, 'settings.json'), (err, data)=>{
+				if(err) {
+					Output.appendLine(err.toString());
+					error++;
+				}
+				else {
+					zip.file('settings.json', data);
+				}
+			});
 		}
 		else if(process.platform === 'darwin') {
-			zip.file('plugins.txt', fs.readFileSync(path.join(folderPath, 'plugins.txt')));
+			fs.readFile(path.join(folderPath, 'plugins.txt'), (err, data)=>{
+				if(err) {
+					Output.appendLine(err.toString());
+					error++;
+				}
+				else {
+					zip.file('plugins.txt', data);
+				}
+			});
+			fs.readFile(path.join(folderPath, 'settings.json'), (err, data)=>{
+				if(err) {
+					Output.appendLine(err.toString());
+				}
+				else {
+					zip.file('settings.json', data);
+				}
+			});
+			
 		}
-		zip.file('settings.json', fs.readFileSync(path.join(folderPath, 'settings.json')));
-		var data = zip.generate({ base64:false, compression: 'DEFLATE' });
-		fs.writeFileSync(path.join(documents, 'vs_backup.zip'), data, 'binary');
-		vscode.window.showInformationMessage('Backup File Created');
+		
+		
+		setTimeout(()=>{
+			if(error === 0) {
+				var data = zip.generate({ base64:false, compression: 'DEFLATE' });
+				fs.writeFileSync(path.join(documents, 'vs_backup.zip'), data, 'binary');
+				vscode.window.showInformationMessage('Backup File Created');
+			}
+			else {
+				vscode.window.showErrorMessage('Failed to create Backup File. See Output for more details');
+			}
+		}, 2000);
 	}
 	else if(mode === 'extract') {
 		var file = fs.readFileSync(path.join(documents, 'vs_backup.zip'));
