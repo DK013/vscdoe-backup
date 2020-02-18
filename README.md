@@ -14,7 +14,7 @@ Visual Studio Code must be added to path for this plugin to working
 
 **How to add vscode to path:**
 
-On Windows and Linux the code command should be installed automatically. On macOS, it needs to be installed manually:
+On Windows and Linux the `code` command should be installed automatically. On macOS, it needs to be installed manually:
 
 Launch VS Code. Now open the Command Palette (F1) and type `shell command` to find the `Shell Command: Install 'code' command in PATH` command. Restart your terminal.
 
@@ -24,9 +24,11 @@ The Extaintion runs every time vscode starts
 
 Or can be accessed manually with the folowing commands:
 
-`VSCode Backup`: Backs up user settings and installed plugins list in a zip file to the document folder.
+`vscode-backup.backup`: Backs up user settings and installed plugins list in a zip file to the document folder.
 
-`VSCode REstore`: Restores user settings and Installs all plugins listed in the backup file from the zip located in Documents folder.
+`vscode-backup.restore`: Restores user settings and Installs all plugins listed in the backup file from the zip located in Documents folder.
+
+`vscode-backup.open-directory`: Opens the Document folder in File Explorer to locate the `vs_backup.zip` file.
 
 ## OS Support
 
@@ -46,17 +48,17 @@ Build: `npm run build`
 
 ## Release Notes
 
-### 0.0.1
+### 0.0.3
 
-Initial release of vscode backup for Windows
+New Zip Library for macOS Support
+macOS tests started
 
 ### 0.0.2
 
 Added Icons and Manifest for Marketplace
 
-### 0.0.3
+### 0.0.1
 
-New Zip Library for macOS Support
-macOS tests started
+Initial release of vscode backup for Windows
 
 **Enjoy!**
