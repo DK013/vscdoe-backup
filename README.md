@@ -10,7 +10,7 @@ Download : [Link to Marketplace](https://marketplace.visualstudio.com/items?item
 
 ## Requirements
 
-Visual Studio Code must be added to path for this plugin to working
+Visual Studio Code must be added to `path` for this plugin to work
 
 **How to add vscode to path:**
 
@@ -20,7 +20,7 @@ Launch VS Code. Now open the Command Palette (F1) and type `shell command` to fi
 
 ## Usage
 
-The Extaintion runs every time vscode starts
+The Extaintion runs every time vscode starts and runs `vscode-backup.backup` command by detault.
 
 Or can be accessed manually with the folowing commands:
 
@@ -32,8 +32,9 @@ Or can be accessed manually with the folowing commands:
 
 ## OS Support
 
-Windows Only.
-Other OS Support coming soon
+Windows, macOS
+
+Linux Distributions support comming soon
 
 ## Contributing
 
@@ -47,6 +48,10 @@ Build: `npm run build`
 
 
 ## Release Notes
+
+### 0.0.4
+
+macOS support added
 
 ### 0.0.3
 
