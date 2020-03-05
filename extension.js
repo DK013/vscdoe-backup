@@ -64,7 +64,7 @@ function activate(context) {
 				vscode.window.showErrorMessage('Failed to get extensions list');
 			});
 		}
-		else if(process.platform === 'darwin'){
+		else {
 			sh.exec('code --list-extensions | xargs -L 1 echo code --install-extension', (code, output) => {
 				fs.writeFile(path.join(folderPath, 'plugins.sh'), output, error => {
 					if(error) {
@@ -100,7 +100,7 @@ function activate(context) {
 				});
 				child.stdin.end(); //end input
 			}
-			else if(process.platform === 'darwin') {
+			else {
 				var spawn = require("child_process").spawn,child;
 				child = spawn("bash",[path.join(folderPath, 'plugins.sh')]);
 				child.stdout.on("data",function(data){
@@ -126,6 +126,16 @@ function activate(context) {
 		else if(process.platform === "darwin") {
 			require('child_process').exec('open "" "'+documents+'"');
 		}
+		else {
+			require('child_process').exec('xdg-open "" "'+documents+'"', (error, stdout, stderr) => {
+				if (error) {
+					console.error(`exec error: ${error}`);
+					return;
+				}
+				console.log(`stdout: ${stdout}`);
+				console.error(`stderr: ${stderr}`);
+			});
+		}
 	});
 
 	context.subscriptions.push(command1, command2, command3);
@@ -143,6 +153,9 @@ function archive(mode = 'create') {  //implemet node-zip after mac test
 			zip.file('plugins.ps1', fs.readFileSync(path.join(folderPath, 'plugins.ps1')));
 		}
 		else if(process.platform === 'darwin') {
+			zip.file('plugins.sh', fs.readFileSync(path.join(folderPath, 'plugins.sh')));
+		}
+		else {
 			zip.file('plugins.sh', fs.readFileSync(path.join(folderPath, 'plugins.sh')));
 		}
 		if(fs.existsSync(path.join(folderPath, 'settings.json'))) {
@@ -167,6 +180,9 @@ function archive(mode = 'create') {  //implemet node-zip after mac test
 			fs.writeFileSync(path.join(folderPath, 'plugins.ps1'), zip.files['plugins.ps1']._data);
 		}
 		else if(process.platform === 'darwin') {
+			fs.writeFileSync(path.join(folderPath, 'plugins.sh'), zip.files['plugins.sh']._data);
+		}
+		else {
 			fs.writeFileSync(path.join(folderPath, 'plugins.sh'), zip.files['plugins.sh']._data);
 		}
 		

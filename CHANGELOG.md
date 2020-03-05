@@ -4,6 +4,12 @@ All notable changes to the "vscode-backup" extension will be documented in this 
 
 ## Release Notes
 
+### 0.0.5
+
+Linux Support Added
+Some House Cleaning
+*Check [Known Issues](README.md##known-issues) for possible problems in different environment
+
 ### 0.0.4
 
 macOS support added
