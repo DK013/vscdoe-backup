@@ -30,11 +30,23 @@ Or can be accessed manually with the folowing commands:
 
 `vscode-backup.open-directory`: Opens the Document folder in File Explorer to locate the `vs_backup.zip` file.
 
+## Known Issues
+
+### Failed to Install Extension
+
+Some Extensions in visual studio marketplace has different package id then what they register in system after install. Sice this plugin doesn't copy any existing extension file from one system to anoteher for privacy and security reasons and install everything from marketplace in the new system, some extensions might fail to install in the newer system if they have different package id in the marketplace. e.g. `ms-vscode.csharp` has the id `ms-dotnettools.csharp` in the marketplace.
+
+Workaround: Check the output log and install the failed to install extensions manually
+
+### open-directory command not working in Linux
+
+Some may encounter this issue in Ubuntu. Though it's been tested in Ubuntu 18 and it works, some prior versions may fail to run this command.
+It's also tested in all Arch linux flavours and works.
+Since there're countless linux distros, it's impossible for us to test in every environmet. So if anybody encounters this issue in their linux distro please let us know.
+
 ## OS Support
 
-Windows, macOS
-
-Linux Distributions support comming soon
+Windows, macOS, Linux
 
 ## Contributing
 
@@ -48,6 +60,12 @@ Build: `npm run build`
 
 
 ## Release Notes
+
+### 0.0.5
+
+Linux Support Added
+Some House Cleaning
+*Check [Known Issues](README.md##known-issues) for possible problems in different environment
 
 ### 0.0.4
 
