@@ -20,7 +20,8 @@ Launch VS Code. Now open the Command Palette (F1) and type `shell command` to fi
 
 ## Usage
 
-~~ The Extaintion runs every time vscode starts and runs `vscode-backup.backup` command by detault. ~~
+~~The Extaintion runs every time vscode starts and runs `vscode-backup.backup` command by detault.~~
+
 For a bug reported where the plugin replaces the backup before importing, we disabled the autorun for now. It'll be enabled later on.
 
 Or can be accessed manually with the folowing commands:
@@ -48,6 +49,7 @@ Since there're countless linux distros, it's impossible for us to test in every 
 ### Backup file got replaced 
 
 For a bug reported where the plugin replaces the backup before importing, we disabled the autorun for now. It'll be enabled later on.
+
 Cehck [Issue](#1) for details.
 
 ## OS Support
