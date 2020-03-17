@@ -50,7 +50,7 @@ Since there're countless linux distros, it's impossible for us to test in every 
 
 For a bug reported where the plugin replaces the backup before importing, we disabled the autorun for now. It'll be enabled later on.
 
-Cehck [Issue](#1) for details.
+Cehck Issue: [#1](https://github.com/DK013/vscdoe-backup/issues/1) for details.
 
 ## OS Support
 
