@@ -20,7 +20,8 @@ Launch VS Code. Now open the Command Palette (F1) and type `shell command` to fi
 
 ## Usage
 
-The Extaintion runs every time vscode starts and runs `vscode-backup.backup` command by detault.
+~~ The Extaintion runs every time vscode starts and runs `vscode-backup.backup` command by detault. ~~
+For a bug reported where the plugin replaces the backup before importing, we disabled the autorun for now. It'll be enabled later on.
 
 Or can be accessed manually with the folowing commands:
 
@@ -43,6 +44,11 @@ Workaround: Check the output log and install the failed to install extensions ma
 Some may encounter this issue in Ubuntu. Though it's been tested in Ubuntu 18 and it works, some prior versions may fail to run this command.
 It's also tested in all Arch linux flavours and works.
 Since there're countless linux distros, it's impossible for us to test in every environmet. So if anybody encounters this issue in their linux distro please let us know.
+
+### Backup file got replaced 
+
+For a bug reported where the plugin replaces the backup before importing, we disabled the autorun for now. It'll be enabled later on.
+Cehck [Issue](#1) for details.
 
 ## OS Support
 

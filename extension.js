@@ -5,6 +5,7 @@ const sh = require('shelljs');
 const Shell = require('node-powershell');
 const fs = require('fs');
 const path = require('path');
+var tmp = require('tmp');
 const Output = vscode.window.createOutputChannel('Vscode Backup');
  
 let ps;
@@ -38,7 +39,7 @@ function activate(context) {
 	// Use the console to output diagnostic information (Output.appendLine) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	Output.appendLine('Congratulations, "vscode-backup" is now active!');
-	vscode.commands.executeCommand('extension.backup');
+	// vscode.commands.executeCommand('extension.backup');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
@@ -161,10 +162,49 @@ function archive(mode = 'create') {  //implemet node-zip after mac test
 		if(fs.existsSync(path.join(folderPath, 'settings.json'))) {
 			zip.file('settings.json', fs.readFileSync(path.join(folderPath, 'settings.json')));
 		}
+		// if(fs.existsSync(path.join(documents, 'vs_backup.zip'))) {
+		// 	var file = fs.readFileSync(path.join(documents, 'vs_backup.zip'));
+		// 	// @ts-ignore
+		// 	var currentZip = new require('node-zip')(file, {base64: false, checkCRC32: true});
+		// 	var currentCount, tmpobj, oldCount;
+		// 	if(process.platform === 'win32') {
+		// 		currentCount = Count(path.join(folderPath, 'plugins.ps1'));
+		// 		tmpobj = tmp.fileSync({ prefix: 'vscode-', postfix: '.ps1' });
+		// 		fs.writeFileSync(tmpobj.name, currentZip.files['plugins.ps1']._data);
+		// 	}
+		// 	else {
+		// 		currentCount = Count(path.join(folderPath, 'plugins.sh'));
+		// 		tmpobj = tmp.fileSync({ prefix: 'vscode-', postfix: '.sh' });
+		// 		fs.writeFileSync(tmpobj.name, currentZip.files['plugins.sh']._data);
+		// 	}
+			
+		// 	oldCount = Count(tmpobj.name);
+		// 	if(oldCount > currentCount) {
+		// 		vscode.window.showInformationMessage('The Current Backup file seems to have more stuff. Wanna oevrwite?', 'Yes', 'No')
+		// 		.then(selection => {
+		// 			if(selection === 'Yes') {
+		// 				var data = zip.generate({ base64:false, compression: 'DEFLATE' });
+		// 				fs.writeFileSync(path.join(documents, 'vs_backup.zip'), data, 'binary');
+		// 				vscode.window.showInformationMessage('Backup File Created');
+		// 			}
+		// 			else {
+		// 				vscode.window.showInformationMessage('Backup Canceled');
+		// 			}
+		// 		})
+		// 	}
+		// 	else if(oldCount < currentCount || oldCount == currentCount){
+		// 		var data = zip.generate({ base64:false, compression: 'DEFLATE' });
+		// 		fs.writeFileSync(path.join(documents, 'vs_backup.zip'), data, 'binary');
+		// 		vscode.window.showInformationMessage('Backup File Created');
+		// 	}
+		// 	tmpobj.removeCallback();
+		// }
+		// else {
+			var data = zip.generate({ base64:false, compression: 'DEFLATE' });
+			fs.writeFileSync(path.join(documents, 'vs_backup.zip'), data, 'binary');
+			vscode.window.showInformationMessage('Backup File Created');
+		// }
 		
-		var data = zip.generate({ base64:false, compression: 'DEFLATE' });
-		fs.writeFileSync(path.join(documents, 'vs_backup.zip'), data, 'binary');
-		vscode.window.showInformationMessage('Backup File Created');
 	}
 	else if(mode === 'extract') {
 		var file = fs.readFileSync(path.join(documents, 'vs_backup.zip'));
@@ -188,6 +228,20 @@ function archive(mode = 'create') {  //implemet node-zip after mac test
 		
 		vscode.window.showWarningMessage('Installing Plugins. Do Not Close the Window. Check Output log for details.');
 	}
+}
+
+function Count(file) {
+	var i;
+	var count = 0;
+	fs.createReadStream(file)
+	.on('data', function(chunk) {
+		for (i=0; i < chunk.length; ++i)
+		if (chunk[i] == 10) count++;
+	})
+	.on('end', function() {
+		console.log(count);
+		return count;
+	});
 }
 module.exports = {
 	activate,
