@@ -71,8 +71,8 @@ Build: `npm run build`
 
 ### 0.0.5
 
-Linux Support Added
-Some House Cleaning
+Linux Support Added  
+Some House Cleaning  
 *Check [Known Issues](README.md##known-issues) for possible problems in different environment
 
 ### 0.0.4
