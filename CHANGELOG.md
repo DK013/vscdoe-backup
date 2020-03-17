@@ -6,8 +6,8 @@ All notable changes to the "vscode-backup" extension will be documented in this 
 
 ### 0.0.5
 
-Linux Support Added
-Some House Cleaning
+Linux Support Added  
+Some House Cleaning  
 *Check [Known Issues](README.md##known-issues) for possible problems in different environment
 
 ### 0.0.4
@@ -16,7 +16,7 @@ macOS support added
 
 ### 0.0.3
 
-New Zip Library for macOS Support
+New Zip Library for macOS Support  
 macOS tests started
 
 ### 0.0.2

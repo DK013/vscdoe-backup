@@ -81,8 +81,7 @@ macOS support added
 
 ### 0.0.3
 
-New Zip Library for macOS Support
-
+New Zip Library for macOS Support  
 macOS tests started
 
 ### 0.0.2
