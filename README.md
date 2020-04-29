@@ -36,7 +36,7 @@ Or can be accessed manually with the folowing commands:
 
 ### Failed to Install Extension
 
-Some Extensions in visual studio marketplace has different package id then what they register in system after install. Sice this plugin doesn't copy any existing extension file from one system to anoteher for privacy and security reasons and install everything from marketplace in the new system, some extensions might fail to install in the newer system if they have different package id in the marketplace. e.g. `ms-vscode.csharp` has the id `ms-dotnettools.csharp` in the marketplace.
+Some Extensions in visual studio marketplace has different package id than what they register in system after install. Sice this plugin doesn't copy any existing extension file from one system to anoteher for privacy and security reasons and install everything from marketplace in the new system, some extensions might fail to install in the newer system if they have different package id in the marketplace. e.g. `ms-vscode.csharp` has the id `ms-dotnettools.csharp` in the marketplace.
 
 Workaround: Check the output log and install the failed to install extensions manually
 
@@ -68,6 +68,11 @@ Build: `npm run build`
 
 
 ## Release Notes
+
+### 0.0.6
+
+Multi-Pltform Backup/Restore 
+Backup package from one platform can be used to restore on another platform.
 
 ### 0.0.5
 

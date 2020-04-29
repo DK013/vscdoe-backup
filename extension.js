@@ -50,7 +50,7 @@ function activate(context) {
 			ps.addCommand('code --list-extensions | % { "code --install-extension $_ " }');
 			ps.invoke()
 			.then(output => {
-				fs.writeFile(path.join(folderPath, 'plugins.ps1'), output, error => {
+				fs.writeFile(path.join(folderPath, 'plugins'), output, error => {
 					if(error) {
 						Output.appendLine(error.toString());
 						vscode.window.showErrorMessage('Failed to create backup file');
@@ -67,7 +67,7 @@ function activate(context) {
 		}
 		else {
 			sh.exec('code --list-extensions | xargs -L 1 echo code --install-extension', (code, output) => {
-				fs.writeFile(path.join(folderPath, 'plugins.sh'), output, error => {
+				fs.writeFile(path.join(folderPath, 'plugins'), output, error => {
 					if(error) {
 						Output.appendLine(error.toString());
 						vscode.window.showErrorMessage('Failed to create backup file');
@@ -93,11 +93,11 @@ function activate(context) {
 				});
 				child.stderr.on("data",function(data){
 					Output.appendLine("Errors: " + data);
-					vscode.window.showErrorMessage('Some Hiccups while Installing Extaintions. Check Output for Details');
+					vscode.window.showErrorMessage('Some Hiccups while Installing Extensions. Check Output for Details');
 				});
 				child.on("exit",function(){
 					Output.appendLine("Script finished");
-					vscode.window.showInformationMessage('Extaintions Imported. Check Output for Details');
+					vscode.window.showInformationMessage('Extensions Imported. Check Output for Details');
 				});
 				child.stdin.end(); //end input
 			}
@@ -109,11 +109,11 @@ function activate(context) {
 				});
 				child.stderr.on("data",function(data){
 					Output.appendLine("Errors: " + data);
-					vscode.window.showErrorMessage('Some Hiccups while Installing Extaintions. Check Output for Details');
+					vscode.window.showErrorMessage('Some Hiccups while Installing Extensions. Check Output for Details');
 				});
 				child.on("exit",function(){
 					Output.appendLine("Script finished");
-					vscode.window.showInformationMessage('Extaintions Imported. Check Output for Details');
+					vscode.window.showInformationMessage('Extensions Imported. Check Output for Details');
 				});
 				child.stdin.end(); //end input
 			}
@@ -150,15 +150,9 @@ function archive(mode = 'create') {  //implemet node-zip after mac test
 	if(mode === 'create') {
 		// @ts-ignore
 		var zip = new require('node-zip')();
-		if(process.platform === 'win32') {
-			zip.file('plugins.ps1', fs.readFileSync(path.join(folderPath, 'plugins.ps1')));
-		}
-		else if(process.platform === 'darwin') {
-			zip.file('plugins.sh', fs.readFileSync(path.join(folderPath, 'plugins.sh')));
-		}
-		else {
-			zip.file('plugins.sh', fs.readFileSync(path.join(folderPath, 'plugins.sh')));
-		}
+
+		zip.file('plugins', fs.readFileSync(path.join(folderPath, 'plugins')));
+
 		if(fs.existsSync(path.join(folderPath, 'settings.json'))) {
 			zip.file('settings.json', fs.readFileSync(path.join(folderPath, 'settings.json')));
 		}
@@ -217,13 +211,13 @@ function archive(mode = 'create') {  //implemet node-zip after mac test
 		}
 
 		if(process.platform === 'win32') {
-			fs.writeFileSync(path.join(folderPath, 'plugins.ps1'), zip.files['plugins.ps1']._data);
+			fs.writeFileSync(path.join(folderPath, 'plugins.ps1'), zip.files['plugins']._data);
 		}
 		else if(process.platform === 'darwin') {
-			fs.writeFileSync(path.join(folderPath, 'plugins.sh'), zip.files['plugins.sh']._data);
+			fs.writeFileSync(path.join(folderPath, 'plugins.sh'), zip.files['plugins']._data);
 		}
 		else {
-			fs.writeFileSync(path.join(folderPath, 'plugins.sh'), zip.files['plugins.sh']._data);
+			fs.writeFileSync(path.join(folderPath, 'plugins.sh'), zip.files['plugins']._data);
 		}
 		
 		vscode.window.showWarningMessage('Installing Plugins. Do Not Close the Window. Check Output log for details.');
