@@ -6,7 +6,7 @@ All notable changes to the "vscode-backup" extension will be documented in this 
 
 ### 0.0.6
 
-Multi-Pltform Backup/Restore 
+Multi-Pltform Backup/Restore  
 Backup package from one platform can be used to restore on another platform.
 
 ### 0.0.5

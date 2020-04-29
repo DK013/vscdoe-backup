@@ -71,7 +71,7 @@ Build: `npm run build`
 
 ### 0.0.6
 
-Multi-Pltform Backup/Restore 
+Multi-Pltform Backup/Restore  
 Backup package from one platform can be used to restore on another platform.
 
 ### 0.0.5
