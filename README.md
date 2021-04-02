@@ -1,4 +1,4 @@
-> :warning: **[ DEPRECIATED ]** This plugin is no longer under active development since Microsoft added built-in bacjup/restore functions in VSCode
+> :warning: **[ DEPRECIATED ]** This plugin is no longer under active development since Microsoft added built-in backup/restore functions in VSCode
 
 # vscode-backup README
 
